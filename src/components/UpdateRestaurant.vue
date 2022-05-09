@@ -44,7 +44,7 @@ export default {
   methods: {
    async updateRestaurant() {
       console.log("function called", this.restaurant);
-       const result = await axios.put("http://localhost:3000/restaurant/"+this.$route.params.id, {
+       const result = await axios.put("https://resto-proj-default-rtdb.firebaseio.com/restaurant.json", {
         name:this.restaurant.name,
         address: this.restaurant.address,
         contact: this.restaurant.contact,
@@ -61,7 +61,7 @@ export default {
     if (!user) {
       this.$router.push({ name: "UpdateRestaurant" });
     }
-    const result =await axios.get("http://localhost:3000/restaurant/"+this.$route.params.id) ;
+    const result =await axios.get("https://resto-proj-default-rtdb.firebaseio.com/restaurant.json") ;
     //console.log(this.$route.params.id)
    // console.log(result.data);
     this.restaurant = result.data

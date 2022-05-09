@@ -44,7 +44,8 @@ export default {
   methods: {
   async  addRestaurant() {
       console.log(this.restaurant);
-      const result = await axios.post("http://localhost:3000/restaurant", {
+    
+      const result = await axios.post("https://resto-proj-default-rtdb.firebaseio.com/restaurant.json", {
         name: this.restaurant.name,
         address: this.restaurant.address,
         contact: this.restaurant.contact,
@@ -54,8 +55,10 @@ export default {
         this.$router.push({name:'HomePage'});
       }
       console.log("result", result);
+      this.$router.replace('/home');
     },
   },
+  
   mounted() {
     let user = localStorage.getItem("details");
     if (!user) {

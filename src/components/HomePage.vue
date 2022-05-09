@@ -15,7 +15,7 @@
       <td>{{ item.address }}</td>
       <td>{{ item.contact }}</td>
       <td>
-        <router-link :to="'/update/' + item.id">Update</router-link>
+        <button class="update" @click="UpdateRestaurant(item.id)">Update</button>
         <button class="delete" @click="deleteRestaurant(item.id)">Delete</button>
       </td>
     </tr>
@@ -37,26 +37,58 @@ export default {
   },
   methods: {
     async deleteRestaurant(id) {
-      let result = await axios.delete("http://localhost:3000/restaurant/" + id);
+      console.log(id);
+      let result = await axios.delete(`https://resto-proj-default-rtdb.firebaseio.com/restaurant/${id}.json`);
       if ((result.status == 200))
        {
         this.loadRestaurant();
       }
+    },
+    UpdateRestaurant(id) {
+      console.log(id);
+      this.$router.replace('/update')
     },
     async loadRestaurant() {
       let user = localStorage.getItem("details");
       if (!user) {
         this.$router.push({ name: "HomePage" });
       }
-      let result = await axios.get("http://localhost:3000/restaurant");
-      this.restaurants = result.data;
-    },
+      
+    let result = await axios.get("https://resto-proj-default-rtdb.firebaseio.com/restaurant.json");
+     let resto =  result.data;
+     console.log(result.data);
+     let arr= []
+     for( let id in resto ){
+  
+       console.log(id);
+       arr.push({
+         id: id,
+         name: resto[id].name,
+         address: resto[id].address,
+         contact: resto[id].contact
+
+       });
+     }
+     console.log(arr);
+     this.restaurants =arr;
+    // console.log(this.restaurants);
+   },
   },
-  mounted() {
+  created() {
     this.loadRestaurant();
   },
 };
 </script>
+
+
+
+
+
+
+
+
+
+
 
 <style>
 .table {

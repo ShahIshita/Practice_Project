@@ -8,6 +8,11 @@ import {createRouter, createWebHistory} from 'vue-router';
 
 const routes = [
     {
+       path: '/',
+       redirect : '/sign-up'
+
+    },
+    {
         name: "HomePage",
         component:HomePage,
         path: '/home'
@@ -30,7 +35,7 @@ const routes = [
     {
         name: "UpdateRestaurant",
         component:UpdateRestaurant,
-        path: '/update/:id' 
+        path: '/update' 
     },
 ]
 const router = createRouter({
